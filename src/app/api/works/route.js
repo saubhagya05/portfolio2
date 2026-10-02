@@ -17,6 +17,9 @@ async function isAdmin() {
 }
 
 export async function GET(request) {
+  // No Supabase configured — the UI falls back to the static project list.
+  if (!supabase) return NextResponse.json([]);
+
   const { searchParams } = new URL(request.url);
   const admin = await isAdmin();
   const category = searchParams.get('category');

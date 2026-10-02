@@ -1,30 +1,27 @@
 import { Suspense } from "react";
-import Cursor from "../../components/Cursor";
-import Navbar from "../../components/Navbar";
-import ProjectsPage from "../../views/projects";
+import PageShell from "@/components/PageShell";
+import ProjectsPage from "@/views/projects";
+import Footer from "@/components/Footer";
 
 export const metadata = {
-  title:       "Projects — Case Studies & Client Work by Sarang",
-  description: "Explore detailed case studies of Sarang's freelance projects — website development, video editing, and design work with client testimonials and tech breakdowns.",
-  keywords:    ["portfolio projects", "case studies", "freelance work", "client projects"],
-  alternates:  { canonical: "https://sarang-space.site/projects" },
+  title: "Projects",
+  description:
+    "Case studies from Saubhagya Laxman Mamgain — AI Creator Copilot (Pocket FM Hackathon 1st Runner-Up), Streamify, HOSCA, plus production backend work at Fourth Frontier Technologies and Tradylytics.",
+  keywords: ["software engineering projects", "backend case studies", "LangGraph", "MERN stack", "Next.js portfolio"],
+  alternates: { canonical: "/projects" },
   openGraph: {
-    title: "Projects — Sarang | Case Studies & Client Work",
-    description: "Detailed case studies of web development, video editing, and design projects by Sarang.",
+    title: "Projects — Saubhagya Laxman Mamgain",
+    description: "Backend systems, full-stack products, and a hackathon build that placed second nationally.",
   },
 };
 
 export default function Page() {
   return (
-    <main>
-      <div className="grain-overlay" />
-      <Cursor />
-      <Navbar />
-      <div className="relative z-10">
-        <Suspense fallback={<div className="min-h-screen bg-[#060606]" />}>
-          <ProjectsPage />
-        </Suspense>
-      </div>
-    </main>
+    <PageShell>
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <ProjectsPage />
+      </Suspense>
+      <Footer />
+    </PageShell>
   );
 }

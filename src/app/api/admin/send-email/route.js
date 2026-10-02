@@ -4,7 +4,9 @@ import { jwtVerify } from 'jose';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Constructed lazily: the Resend SDK throws at import time when the key is
+// missing, which would break `next build` on a machine without one.
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 async function isAdmin() {
   const store = await cookies();
@@ -48,15 +50,15 @@ export async function POST(request) {
     // you can only send emails to the email address registered with your Resend account.
     // To send to "any mailer", you must verify a custom domain in the Resend dashboard 
     // and change the 'from' address below to something like 'hello@yourdomain.com'.
-    const { data, error } = await resend.emails.send({
-      from: 'Sarang <support@sarang-space.site>',
+    const { data, error } = await getResend().emails.send({
+      from: 'Saubhagya Mamgain <onboarding@resend.dev>',
       to: to,
       subject: subject,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #080808; color: #ffffff; padding: 40px; border-radius: 16px; border: 1px solid #222;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <img src="https://sarang-space.site/photo/about%20me.png" alt="Sarang" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff6b1a; margin-bottom: 16px;" />
-            <h2 style="margin: 0; color: #fff; font-size: 24px; letter-spacing: -0.5px;">Sarang</h2>
+            <div style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ff6b1a; margin: 0 auto 16px; line-height: 76px; text-align: center; font-size: 30px; font-weight: 900; color: #ff6b1a;">SM</div>
+            <h2 style="margin: 0; color: #fff; font-size: 24px; letter-spacing: -0.5px;">Saubhagya Mamgain</h2>
             <p style="margin: 4px 0 0; color: #ff6b1a; font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">Creative Developer</p>
           </div>
           <hr style="border: none; border-top: 1px solid #222; margin: 0 0 30px;" />
@@ -64,7 +66,7 @@ export async function POST(request) {
           <hr style="border: none; border-top: 1px solid #222; margin: 40px 0 20px;" />
           <div style="text-align: center; color: #666; font-size: 12px;">
             <p style="margin: 0;">Sent directly from</p>
-            <p style="margin: 4px 0 0;"><a href="https://sarang-space.site" style="color: #ff6b1a; text-decoration: none; font-weight: bold;">sarang-space.site</a></p>
+            <p style="margin: 4px 0 0;"><a href="mailto:saubhagyamamgain@gmail.com" style="color: #ff6b1a; text-decoration: none; font-weight: bold;">saubhagyamamgain@gmail.com</a></p>
           </div>
         </div>
       `,
@@ -78,7 +80,7 @@ export async function POST(request) {
 
     // Save the sent email to the inquiries database so the admin can see the history
     await supabase.from('inquiries').insert([{
-      name: 'Sent by Sarang',
+      name: 'Sent by Saubhagya Mamgain',
       email: to,
       message: `SUBJECT: ${subject}\n\n${message}`,
       read: true // automatically mark sent emails as read

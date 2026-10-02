@@ -1,136 +1,148 @@
 /**
- * SeoContent — Hidden semantic HTML for search engines & AI crawlers.
- * 
- * This component renders keyword-rich, structured text that search engines
- * and AI bots can crawl, even when the visual content is animated/JS-driven.
- * It's visually hidden but fully accessible to screen readers and crawlers.
+ * SeoContent — hidden semantic HTML for search engines and AI crawlers.
+ *
+ * Visually hidden, but fully readable by screen readers and bots, so the
+ * animated/JS-driven page above still has crawlable text behind it.
  */
 export default function SeoContent() {
   return (
-    <div
-      className="sr-only"
-      aria-hidden="false"
-      itemScope
-      itemType="https://schema.org/Person"
-    >
-      {/* Force rebuild */}
-      <h1 itemProp="name">Sarang — Next.js Developer, Shopify Expert, Graphic Designer & Video Editor</h1>
-      
+    <div className="sr-only" itemScope itemType="https://schema.org/Person">
+      <h1 itemProp="name">
+        Saubhagya Laxman Mamgain — Backend &amp; Full-Stack Engineer
+      </h1>
+
       <p itemProp="description">
-        Creative developer and designer specializing in Next.js websites, Shopify stores, branding, cinematic video editing, motion graphics, and premium digital experiences. 
-        I build modern high-performance websites. I design cinematic digital experiences. Custom Shopify and Next.js development.
-        Premium branding and visual storytelling. Fast, SEO optimized responsive websites. Creative developer for fashion and luxury brands. 
-        Professional video editing and motion graphics. Modern portfolio and business website solutions.
+        Backend and full-stack engineer and final-year Electrical &amp; Electronics
+        Engineering undergraduate at the Indian Institute of Technology, Patna.
+        I build serverless APIs on AWS Lambda, Node.js and Express services,
+        subscription and billing systems, and production web applications with
+        Next.js, React and MongoDB. Codeforces Specialist with 600+ data
+        structures and algorithms problems solved.
       </p>
 
-      <p itemProp="jobTitle">Next.js Developer & Shopify Expert</p>
+      <p itemProp="jobTitle">Backend Software Developer</p>
 
-      <section aria-label="Services">
-        <h2>Services — Hire Sarang</h2>
-        
+      <section aria-label="Experience">
+        <h2>Experience</h2>
+
         <article>
-          <h3>Portfolio Design & Website Development</h3>
+          <h3>Backend Software Developer Intern — Fourth Frontier Technologies</h3>
           <p>
-            Looking for a Website Developer in Kerala or a Web Designer in Calicut? Sarang creates cinematic, interactive portfolio 
-            websites, landing pages, Shopify e-commerce stores, and full-stack web applications. Technologies include 
-            React, Next.js, GSAP, Three.js, WebGL, Tailwind CSS, Node.js, Express, and Supabase.
+            May 2026 to present, Bangalore, on-site. Engineered an end-to-end,
+            multi-platform subscription management system handling cross-platform
+            purchases via Shopify Webhooks and Android In-App APIs, with dynamic
+            data-mapping logic and custom validation middleware classifying users
+            across a four-tier subscription model, plus event-driven Slack API
+            integrations and cron jobs for automated alerts. Refactored workout
+            storage for 20 physiological metrics per timestamp, reducing database
+            records from 20 to 1 per timestamp, and architected versioned
+            serverless APIs on AWS Lambda with a two-tier fallback mechanism and
+            Amazon S3 integration. Eliminated UI lag in acceleration graphs using
+            the Largest Triangle Three Buckets algorithm, reducing 86,000 data
+            points to 2,000 while preserving visual fidelity. Diagnosed production
+            issues across AWS Lambda workflows with Postman, Jest, Supertest and
+            CloudWatch log analysis.
           </p>
         </article>
 
         <article>
-          <h3>Video Editing & Motion Design</h3>
+          <h3>Full Stack Developer Intern — Tradylytics</h3>
           <p>
-            Need a freelance Video Editor in Kerala? Sarang creates cinematic trailers, social media reels, promotional videos,
-            YouTube content, motion graphics, and animated visual effects using After Effects, Premiere Pro, 
-            DaVinci Resolve, and CapCut. Over 75 videos edited.
-          </p>
-        </article>
-
-        <article>
-          <h3>Photo Editing & Graphic Design</h3>
-          <p>
-            Hire a Graphic Designer in India. Sarang provides professional photo retouching, brand identity 
-            design, poster design, social media graphics, and creative visual concepts using Photoshop, Lightroom, 
-            Figma, and Illustrator. Over 500 photo edits completed.
-          </p>
-        </article>
-
-        <article>
-          <h3>Shopify Development</h3>
-          <p>
-            Custom Shopify themes with Liquid, e-commerce store setup, and storefront optimization for online businesses. Shopify Developer Kerala.
-          </p>
-        </article>
-
-        <article>
-          <h3>Flutter App Development</h3>
-          <p>
-            Cross-platform mobile app development for iOS and Android using Flutter and Dart.
+            May 2025 to July 2025, remote, at an IIT Patna-backed startup.
+            Integrated secure authentication with JWT and Google OAuth 2.0.
+            Constructed REST APIs for CSV trade ingestion, manual trade management
+            and broker integrations with request validation and MongoDB
+            persistence on an MVC architecture. Reduced API response time by
+            minimising redundant MongoDB queries, applying field projection and
+            indexing frequently accessed collections in a Node.js and Express
+            backend.
           </p>
         </article>
       </section>
 
-      <section aria-label="Portfolio Statistics">
-        <h2>Portfolio Statistics</h2>
+      <section aria-label="Projects">
+        <h2>Projects</h2>
+
+        <article>
+          <h3>AI Creator Copilot — Pocket FM Hackathon, 1st Runner-Up</h3>
+          <p>
+            An end-to-end AI Creator Studio that transforms a story idea into a
+            complete audio episode through a human-in-the-loop workflow. Built
+            with FastAPI, LangGraph, Google Gemini, React.js, Zustand and Tailwind
+            CSS. Features an interrupt-driven LangGraph pipeline preserving
+            workflow state across server restarts, and a parallel text-to-speech
+            rendering pipeline with worker-based audio generation, API-key-aware
+            rate limiting and content caching.
+          </p>
+        </article>
+
+        <article>
+          <h3>Streamify — Language Learning Platform</h3>
+          <p>
+            A full-stack language exchange platform supporting instant messaging
+            and HD video communication, built with MongoDB, Express.js, React.js,
+            Node.js, DaisyUI and Stream APIs. Includes friend connections,
+            activity feeds, private messaging, video calling, screen sharing and
+            cloud recording.
+          </p>
+        </article>
+
+        <article>
+          <h3>HOSCA — IIT Patna Cultural Club Portal</h3>
+          <p>
+            A production-ready web portal for the IIT Patna cultural club
+            supporting 500+ users during major campus events and registrations.
+            Built with TypeScript, Next.js and React.js, using server-side
+            rendering and SEO optimisation, deployed on Vercel.
+          </p>
+        </article>
+      </section>
+
+      <section aria-label="Achievements">
+        <h2>Achievements</h2>
         <ul>
-          <li>6+ websites designed and developed</li>
-          <li>75+ videos professionally edited</li>
-          <li>500+ photo edits and visual concepts created</li>
-          <li>Freelancing since 2020</li>
+          <li>1st Runner-Up with a 1.5 lakh cash prize at the Pocket FM AI Creator Hackathon, a 36-hour national hackathon.</li>
+          <li>Flipkart GRID 8.0 Semi-Finalist out of 165,730 participants.</li>
+          <li>Codeforces peak rating 1495, Specialist. CodeChef 3-star coder.</li>
+          <li>Rank 112 in CodeChef Starters 172 among 35,000+ participants.</li>
+          <li>Solved 600+ data structures and algorithms problems across LeetCode, Codeforces and GeeksforGeeks.</li>
+          <li>Research Consultant at WorldQuant Brain, working on quantitative finance and alpha research.</li>
+          <li>Top 0.4 percentile in JEE Mains among 1.2 million candidates; AIR 6102 in JEE Advanced among 190,000 candidates.</li>
         </ul>
       </section>
 
-      <section aria-label="Technical Skills">
+      <section aria-label="Technical skills">
         <h2>Technical Skills</h2>
-        <p itemProp="knowsAbout">
-          React, Next.js, JavaScript, TypeScript, HTML5, CSS3, Tailwind CSS, GSAP, Framer Motion, Three.js, WebGL,
-          Node.js, Express, Prisma, Flutter, Dart, Shopify Liquid, Python, Java, C++, PHP, Go, Rust, Swift, Kotlin,
-          MongoDB, PostgreSQL, MySQL, Redis, Supabase, Postman, Git, Docker, Vercel, Netlify,
-          After Effects, Premiere Pro, DaVinci Resolve, CapCut, Photoshop, Lightroom, Figma, Illustrator
+        <p>
+          Languages: C++, C, JavaScript, TypeScript, Python, SQL. Backend:
+          Node.js, Express.js, FastAPI, REST APIs, JWT authentication, OAuth 2.0.
+          Cloud: AWS Lambda, Amazon S3, Amazon RDS, DynamoDB, CloudWatch.
+          Testing: Jest, Supertest, API testing with Postman. Databases: MongoDB,
+          MySQL. Computer science fundamentals: data structures and algorithms,
+          object-oriented programming, operating systems, computer networks,
+          system design. Frontend: React.js, Next.js, Tailwind CSS, Redux
+          Toolkit, DaisyUI. Tools: Git, GitHub, Bitbucket, Jira, Postman, Docker,
+          Vercel, VS Code.
         </p>
       </section>
 
-      <section aria-label="About Sarang — Creative Website Developer & Designer">
-        <h2>Sarang – Creative Website Developer & Designer</h2>
+      <section aria-label="Education">
+        <h2>Education</h2>
         <p>
-          Sarang is a creative website developer and digital designer from Kerala, India, focused on building modern digital experiences, cinematic visuals, branding systems, Shopify stores, and high-quality poster designs. With a strong passion for creativity and technology, Sarang combines visual storytelling with modern web development to create unique online experiences that feel premium, immersive, and visually powerful.
-        </p>
-        
-        <h3>Skills and Expertise:</h3>
-        <ul>
-          <li>Website Development</li>
-          <li>Frontend Development</li>
-          <li>Shopify Development</li>
-          <li>Ecommerce Design</li>
-          <li>UI/UX Design</li>
-          <li>Graphic Design</li>
-          <li>Poster Design</li>
-          <li>Branding Design</li>
-          <li>Motion Graphics</li>
-          <li>Video Editing</li>
-          <li>Cinematic Visual Design</li>
-          <li>Digital Storytelling</li>
-          <li>Responsive Web Design</li>
-          <li>Modern Landing Pages</li>
-          <li>Creative Direction</li>
-          <li>Social Media Design</li>
-          <li>Luxury Brand Visuals</li>
-          <li>Portfolio Website Design</li>
-          <li>Modern Typography</li>
-          <li>Creative Development</li>
-        </ul>
-        
-        <p>
-          Sarang continues to develop modern digital experiences focused on creativity, performance, storytelling, and visual identity. His goal is to create meaningful digital work that combines design, technology, and emotional impact into a single creative experience.
+          B.Tech in Electrical &amp; Electronics Engineering at the Indian
+          Institute of Technology, Patna, 2023 to 2027, 77.5 percent.
+          Intermediate from Doon International School, Dehradun, CBSE, 2023, 91.8
+          percent. Matriculation from Summer Valley School, Dehradun, ICSE, 2021,
+          97.6 percent.
         </p>
       </section>
 
       <section aria-label="Contact">
-        <h2>Hire Sarang — Contact Information</h2>
+        <h2>Contact</h2>
         <p>
-          <span itemProp="url">https://sarang-space.site</span> |
-          <span itemProp="email">sarangwalle[at]gmail.com</span> |
-          Available for freelance projects worldwide
+          Email <span itemProp="email">saubhagyamamgain@gmail.com</span>, phone
+          +91-9410956469. Based in Bangalore, India, and open to backend and
+          full-stack engineering roles.
         </p>
       </section>
     </div>

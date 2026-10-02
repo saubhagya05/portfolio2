@@ -1,141 +1,133 @@
 "use client";
-import { motion } from "motion/react";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import gsap from "gsap";
 
-const buildKeyframes = (from, steps) => {
-  const keys = new Set([...Object.keys(from), ...steps.flatMap((s) => Object.keys(s))]);
-  const keyframes = {};
-  keys.forEach((k) => {
-    keyframes[k] = [from[k], ...steps.map((s) => s[k])];
-  });
-  return keyframes;
-};
-
-const BlurText = ({
+/**
+ * BlurText — word-by-word blur/fade reveal.
+ *
+ * Driven by GSAP, which the site already loads for its scroll animations.
+ * (This used to pull in the whole `motion` library for one effect.)
+ *
+ * `*word*` in the text renders as highlighted serif italic.
+ *
+ * Once a paragraph has finished revealing, its inline filter/transform are
+ * cleared so the browser can drop the compositing layers — a long page of
+ * permanently blurred spans is what makes this kind of effect feel heavy.
+ */
+export default function BlurText({
   text = "",
-  delay = 200,
+  delay = 20,              // ms between words
   className = "",
   animateBy = "words",
-  direction = "top",
+  direction = "bottom",
   threshold = 0.1,
   rootMargin = "0px",
-  animationFrom,
-  animationTo,
-  easing = (t) => t,
-  onAnimationComplete,
-  stepDuration = 0.35,
+  stepDuration = 0.22,
   animateOnMount = false,
-}) => {
-  const elements = useMemo(() => {
+  onAnimationComplete,
+}) {
+  const ref = useRef(null);
+
+  const segments = useMemo(() => {
     if (animateBy !== "words") {
-      return text.split("").map(char => ({ word: char, punctuation: "", isItalic: false }));
+      return text.split("").map((char) => ({ word: char, punctuation: "", isItalic: false }));
     }
+
     let inItalic = false;
-    return text.split(" ").map((word) => {
+    return text.split(" ").map((raw) => {
       let currentItalic = inItalic;
-      let cleanWord = word;
+      let word = raw;
       let punctuation = "";
 
-      if (cleanWord.startsWith("*")) {
-        cleanWord = cleanWord.slice(1);
+      if (word.startsWith("*")) {
+        word = word.slice(1);
         inItalic = true;
         currentItalic = true;
       }
 
-      const trailingMatch = cleanWord.match(/^(.*?)\*([.,\/#!$%\^&\*;:{}=\-_`~()]*)$/);
-      if (trailingMatch) {
-        cleanWord = trailingMatch[1];
-        punctuation = trailingMatch[2];
+      const trailing = word.match(/^(.*?)\*([.,/#!$%^&*;:{}=\-_`~()]*)$/);
+      if (trailing) {
+        word = trailing[1];
+        punctuation = trailing[2];
         inItalic = false;
       }
 
-      return {
-        word: cleanWord,
-        punctuation,
-        isItalic: currentItalic,
-      };
+      return { word, punctuation, isItalic: currentItalic };
     });
   }, [text, animateBy]);
 
-  const [inView, setInView] = useState(false);
-  const ref = useRef(null);
-
   useEffect(() => {
-    if (animateOnMount) {
-      setInView(true);
+    const el = ref.current;
+    if (!el) return;
+
+    const spans = el.querySelectorAll("[data-bt]");
+    if (!spans.length) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      gsap.set(spans, { clearProps: "all" });
+      onAnimationComplete?.();
       return;
     }
-    if (!ref.current) return;
+
+    const y = direction === "top" ? -40 : 40;
+    let tween = null;
+
+    const run = () => {
+      tween = gsap.fromTo(
+        spans,
+        { opacity: 0, y, filter: "blur(10px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: stepDuration * 2,
+          ease: "power3.out",
+          stagger: delay / 1000,
+          onComplete: () => {
+            // Drop the inline styles so no compositing layers linger.
+            gsap.set(spans, { clearProps: "filter,transform,opacity,willChange" });
+            onAnimationComplete?.();
+          },
+        }
+      );
+    };
+
+    if (animateOnMount) {
+      run();
+      return () => tween?.kill();
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(ref.current);
+          observer.disconnect();
+          run();
         }
       },
       { threshold, rootMargin }
     );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [threshold, rootMargin, animateOnMount]);
+    observer.observe(el);
 
-  const defaultFrom = useMemo(
-    () =>
-      direction === "top"
-         ? { filter: "blur(10px)", opacity: 0, y: -50 }
-         : { filter: "blur(10px)", opacity: 0, y: 50 },
-    [direction]
-  );
-
-  const defaultTo = useMemo(
-    () => [
-      { filter: "blur(5px)", opacity: 0.5, y: direction === "top" ? 5 : -5 },
-      { filter: "blur(0px)", opacity: 1, y: 0 },
-    ],
-    [direction]
-  );
-
-  const fromSnapshot = animationFrom ?? defaultFrom;
-  const toSnapshots = animationTo ?? defaultTo;
-  const stepCount = toSnapshots.length + 1;
-  const totalDuration = stepDuration * (stepCount - 1);
-  const times = Array.from({ length: stepCount }, (_, i) =>
-    stepCount === 1 ? 0 : i / (stepCount - 1)
-  );
+    return () => {
+      observer.disconnect();
+      tween?.kill();
+    };
+  }, [segments, delay, direction, stepDuration, threshold, rootMargin, animateOnMount, onAnimationComplete]);
 
   return (
     <p ref={ref} className={className}>
-      {elements.map((segment, index) => {
-        const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
-        const spanTransition = {
-          duration: totalDuration,
-          times,
-          delay: (index * delay) / 1000,
-          ease: easing,
-        };
-
-        return (
-          <motion.span
-            key={index}
-            style={{ display: "inline-block" }}
-            initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
-            transition={spanTransition}
-            onAnimationComplete={
-              index === elements.length - 1 ? onAnimationComplete : undefined
-            }
-          >
-            {segment.isItalic ? (
-              <span className="font-serif italic text-white/90">{segment.word}</span>
-            ) : (
-              segment.word
-            )}
-            {segment.punctuation}&nbsp;
-          </motion.span>
-        );
-      })}
+      {segments.map((segment, i) => (
+        <span key={i} data-bt style={{ display: "inline-block", opacity: 0 }}>
+          {segment.isItalic ? (
+            <span className="font-serif italic text-white/90">{segment.word}</span>
+          ) : (
+            segment.word
+          )}
+          {segment.punctuation}
+          &nbsp;
+        </span>
+      ))}
     </p>
   );
-};
-
-export default BlurText;
+}

@@ -1,46 +1,46 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-import dynamic from "next/dynamic";
 import Cursor from "../components/Cursor";
 import Navbar from "../components/Navbar";
-const VideoScrub = dynamic(() => import("../components/VideoScrub"), { ssr: false });
+import Backdrop from "../components/Backdrop";
+import ScrollProgress from "../components/ScrollProgress";
 import Hero from "../components/Hero";
-import About from "../components/About";
+import Experience from "../components/Experience";
 import Work from "../components/Work";
+import Achievements from "../components/Achievements";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import SeoContent from "../components/SeoContent";
 
+const SECTIONS = [
+  { id: "hero-section",         label: "Intro"    },
+  { id: "experience-section",   label: "Career"   },
+  { id: "work-section",         label: "Work"     },
+  { id: "achievements-section", label: "Record"   },
+  { id: "contact-section",      label: "Contact"  },
+];
+
 export default function Home() {
-  const blurWrapRef = useRef(null);
-  const footerRef   = useRef(null);
-
   useEffect(() => {
+    // Skip smooth scrolling entirely when the OS asks for reduced motion.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const lenis = new Lenis({
-      lerp: 0.1, // More responsive, less lag
+      lerp: 0.12,
       smoothWheel: true,
-      wheelMultiplier: 1, // Normal scroll speed
+      wheelMultiplier: 1,
+      syncTouch: false, // native scrolling on touch — far smoother on phones
     });
 
-    lenis.on("scroll", () => {
-      ScrollTrigger.update();
-      if (blurWrapRef.current && footerRef.current) {
-        const footerTop = footerRef.current.getBoundingClientRect().top;
-        const vh = window.innerHeight;
-        // opacity = 1 while footer is below viewport, fades as footer enters
-        const opacity = footerTop >= vh ? 1 : Math.max(0, footerTop / vh);
-        blurWrapRef.current.style.opacity = opacity;
-      }
+    lenis.on("scroll", ScrollTrigger.update);
 
-    });
-
-    const tick = (time) => { lenis.raf(time * 1000); };
+    const tick = (time) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
@@ -52,7 +52,7 @@ export default function Home() {
 
   return (
     <main>
-      {/* SEO-crawlable structured content (visually hidden) - Forced HMR refresh */}
+      {/* SEO-crawlable structured content (visually hidden) */}
       <SeoContent />
 
       {/* grain */}
@@ -61,24 +61,23 @@ export default function Home() {
       {/* difference cursor */}
       <Cursor />
 
-      {/* sticky scrubbed video — lives behind everything */}
-      <VideoScrub />
+      {/* cinematic background — lives behind everything */}
+      <Backdrop />
 
-      {/* scroll progress indicator */}
+      {/* scroll progress rail */}
+      <ScrollProgress sections={SECTIONS} />
 
       {/* fixed nav */}
       <Navbar />
 
-      {/* bottom blur — fixed to viewport, fades when footer arrives */}
-      <div ref={blurWrapRef} className="bottom-blur" />
-
       {/* scrollable sections */}
       <div className="relative z-10">
         <Hero />
-        <About />
+        <Experience />
         <Work />
+        <Achievements />
         <Contact />
-        <div ref={footerRef}><Footer /></div>
+        <Footer />
       </div>
     </main>
   );

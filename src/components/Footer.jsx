@@ -1,49 +1,26 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { trackClick } from "@/lib/trackClick";
+import { PERSON, SOCIAL_LINKS } from "@/content/site";
 
 const LINKS = [
-  { label: "About",   href: "/about"   },
-  { label: "Contact", href: "/contact" },
-];
-
-const SOCIAL_KEYS = [
-  { key: "instagram", label: "Instagram" },
-  { key: "github",    label: "GitHub"    },
-  { key: "linkedin",  label: "LinkedIn"  },
-  { key: "twitter",   label: "X"         },
-  { key: "youtube",   label: "YouTube"   },
-  { key: "behance",   label: "Behance"   },
-  { key: "dribbble",  label: "Dribbble"  },
-  { key: "whatsapp",  label: "WhatsApp"  },
+  { label: "Projects", href: "/projects" },
+  { label: "About",    href: "/about"    },
+  { label: "Contact",  href: "/contact"  },
 ];
 
 export default function Footer() {
   const ref = useRef(null);
-  const [socials, setSocials] = useState([]);
 
-  useEffect(() => {
-    fetch("/api/settings?key=social_links")
-      .then(r => r.ok ? r.json() : null)
-      .then(data => {
-        if (!data?.value) return;
-        const active = SOCIAL_KEYS.filter(s => data.value[s.key]?.trim()).map(s => ({
-          label: s.label,
-          href:  data.value[s.key].trim(),
-        }));
-        setSocials(active);
-      })
-      .catch(() => {});
-  }, []);
-
+  // Socials come from src/content/site.js now — no network request on mount.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     el.style.opacity = "0";
-    el.style.transform = "translateY(48px)";
-    el.style.transition = "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)";
+    el.style.transform = "translateY(40px)";
+    el.style.transition =
+      "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)";
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -61,73 +38,72 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={ref} className="relative border-t border-white/8 px-10 md:px-20 py-16">
+    <footer ref={ref} className="relative border-t border-white/8 px-6 sm:px-10 md:px-20 py-16">
+      <div className="max-w-6xl mx-auto">
+        {/* top row */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-14">
+          <div>
+            <p className="text-[12px] text-[#ff6b1a] tracking-[0.4em] uppercase mb-4 font-bold">
+              {PERSON.role}
+            </p>
+            <h2
+              className="font-black tracking-tighter leading-[0.85] text-white"
+              style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
+            >
+              {PERSON.firstName}
+            </h2>
+            <p className="mt-3 text-white/60 text-sm tracking-[0.2em] uppercase">
+              {PERSON.school} &middot; {PERSON.location}
+            </p>
+          </div>
 
-      {/* top row */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
-
-        {/* name + tagline */}
-        <div>
-          <p className="text-[10px] text-[#ff6b1a] tracking-[0.5em] uppercase mb-4 font-medium">
-            Creative Developer
-          </p>
-          <h2
-            className="font-black tracking-tighter leading-[0.85]"
-            style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
-          >
-            <span className="block text-white">Sarang</span>
-          </h2>
-        </div>
-
-        {/* nav + socials */}
-        <div className="flex flex-col gap-8 md:items-end">
-          <nav className="flex gap-8 text-[11px] uppercase tracking-[0.3em] font-medium">
-            {LINKS.map(({ label, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-white/40 hover:text-[#ff6b1a] transition-colors duration-300"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          {socials.length > 0 && (
-            <div className="flex flex-wrap gap-8 text-[11px] uppercase tracking-[0.3em] font-medium">
-              {socials.map(({ label, href }) => (
-                <a
-                  key={label}
+          <div className="flex flex-col gap-7 md:items-end">
+            <nav className="flex flex-wrap gap-7 text-[12px] uppercase tracking-[0.3em] font-medium">
+              {LINKS.map(({ label, href }) => (
+                <Link
+                  key={href}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackClick(`social-${label.toLowerCase()}`, href)}
-                  className="text-white/25 hover:text-white/70 transition-colors duration-300"
+                  className="text-white/62 hover:text-[#ff6b1a] transition-colors duration-300"
                 >
                   {label}
-                </a>
+                </Link>
               ))}
-            </div>
-          )}
+            </nav>
+
+            {SOCIAL_LINKS.length > 0 && (
+              <div className="flex flex-wrap gap-6 md:justify-end text-[12px] uppercase tracking-[0.3em] font-medium">
+                {SOCIAL_LINKS.map(({ key, label, url }) => (
+                  <a
+                    key={key}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/58 hover:text-white/70 transition-colors duration-300"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="w-full h-px bg-white/8 mb-8" />
+
+        {/* bottom row */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <a
+            href={`mailto:${PERSON.email}`}
+            className="text-[12px] text-white/60 hover:text-[#ff6b1a] tracking-widest transition-colors duration-300"
+            style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: "italic" }}
+          >
+            {PERSON.email}
+          </a>
+          <p className="text-[12px] text-white/45 tracking-[0.3em] uppercase">
+            &copy; {new Date().getFullYear()} {PERSON.fullName}
+          </p>
         </div>
       </div>
-
-      {/* divider */}
-      <div className="w-full h-px bg-white/8 mb-8" />
-
-      {/* bottom row */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <p
-          className="text-[10px] text-white/20 tracking-widest"
-          style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: "italic" }}
-        >
-          sarangwalle@gmail.com
-        </p>
-        <p className="text-[10px] text-white/15 tracking-[0.3em] uppercase">
-          © {new Date().getFullYear()} Sarang Walle. All rights reserved.
-        </p>
-      </div>
-
     </footer>
   );
 }

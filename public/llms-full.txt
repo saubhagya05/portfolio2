@@ -1,122 +1,140 @@
-# Sarang — Portfolio Designer, Website Developer, Video Editor & Photo Editor (Full Details)
+# Saubhagya Laxman Mamgain — Backend & Full-Stack Engineer (Full Profile)
 
-> Full machine-readable profile of Sarang — a freelance portfolio designer, website developer, video editor, and photo editor from India.
+> Complete machine-readable profile of Saubhagya Laxman Mamgain, a backend and
+> full-stack engineer and final-year Electrical & Electronics Engineering
+> undergraduate at the Indian Institute of Technology, Patna.
 
 ## Identity
 
-- Name: Sarang
-- Age: 19
-- Location: India
-- Education: Currently studying Cybersecurity
-- Title: Creative Developer & Digital Experience Designer
-- Website: https://sarang-space.site
-- Email: sarangwalle@gmail.com
-- GitHub: https://github.com/Saarangggg
+- Full name: Saubhagya Laxman Mamgain
+- Role: Backend & Full-Stack Engineer
+- Location: Bangalore, India
+- Email: saubhagyamamgain@gmail.com
+- Phone: +91-9410956469
+- Institute: Indian Institute of Technology, Patna
+- Degree: B.Tech, Electrical & Electronics Engineering (2023–2027)
 
-## Professional Summary
+## Education
 
-Sarang is a multi-disciplinary creative developer who combines web development, video editing, and visual design to create immersive digital experiences. With a focus on cinematic aesthetics, smooth animations, and storytelling through technology, he delivers premium digital products that feel alive and memorable. He is currently studying Cybersecurity, adding a strong technical security foundation to his creative work.
+| Degree | Board / University | Institution | Year | Score |
+| --- | --- | --- | --- | --- |
+| Graduation | IIT Patna | Indian Institute of Technology, Patna | 2023–2027 | 77.5% |
+| Intermediate | CBSE | Doon International School, Dehradun | 2023 | 91.8% |
+| Matriculation | ICSE | Summer Valley School, Dehradun | 2021 | 97.6% |
 
-## Core Philosophy
+## Work Experience
 
-"Development is not just about making something work — it's about creating a feeling through motion, atmosphere, detail, and the overall experience people get when they interact with it."
+### Fourth Frontier Technologies — Backend Software Developer Intern
+May 2026 – Present. Bangalore, on-site.
 
-## Detailed Services
+- Engineered an end-to-end, multi-platform subscription management system in a
+  fast-paced startup environment, handling cross-platform purchases via Shopify
+  Webhooks and Android In-App APIs. Designed dynamic data-mapping logic and
+  custom validation middleware to classify users across a 4-tier subscription
+  model, with event-driven Slack API integrations and cron jobs for automated
+  team alerts and subscription lifecycle management.
+- Refactored workout storage for 20 physiological metrics per timestamp,
+  reducing database records from 20 to 1 per timestamp through a new data model.
+  Architected versioned serverless APIs on AWS Lambda with a 2-tier fallback
+  mechanism and Amazon S3 integration, including the v12 Create Workout and
+  View Workout APIs.
+- Eliminated UI lag in acceleration graphs by implementing the Largest Triangle
+  Three Buckets (LTTB) algorithm, reducing 86K data points to 2K while
+  preserving visual fidelity.
+- Diagnosed production issues across AWS Lambda workflows by testing backend
+  APIs with Postman, Jest/Supertest, and Lambda's built-in test functionality.
+  Analyzed CloudWatch logs to identify API integration and event-processing
+  failures.
 
-### 1. Creative Web Development
-- Custom portfolio websites with cinematic scroll experiences
-- Interactive landing pages with GSAP animations and Three.js 3D elements
-- Shopify e-commerce stores with custom Liquid themes
-- Full-stack web applications with Next.js, Node.js, and databases
-- WebGL-powered immersive experiences
-- Responsive, mobile-first design implementation
+### Tradylytics — Full Stack Developer Intern
+May 2025 – July 2025. Remote. IIT Patna-backed startup.
 
-### 2. Motion Design & Video Editing
-- Cinematic trailers and promotional videos
-- Social media reels and short-form content
-- Motion graphics and animated titles
-- Color grading and visual effects
-- Brand video packages
+- Integrated secure authentication using JWT and Google OAuth 2.0, simplifying
+  user sign-in while strengthening account security.
+- Constructed REST APIs for CSV trade ingestion, manual trade management, and
+  broker integrations, implementing JWT authentication, request validation, and
+  MongoDB persistence using the MVC architecture.
+- Reduced API response time by minimizing redundant MongoDB queries, applying
+  field projection, and indexing frequently accessed collections in a
+  Node.js/Express backend.
 
-### 3. UI/UX & Visual Design
-- Modern, minimal interface design in Figma
-- Brand identity and logo design
-- Poster and print design
-- Photo editing and retouching
-- Creative visual concepts and mood boards
+## Projects
 
-### 4. Mobile App Development
-- Cross-platform apps with Flutter/Dart
-- Job management applications
-- Billing and POS applications
-- Native mobile UI/UX implementation
+### AI Creator Copilot — Pocket FM Hackathon (1st Runner-Up)
+Stack: FastAPI, LangGraph, Google Gemini, React.js, Zustand, Tailwind CSS.
 
-## Complete Technical Stack
+- Developed an end-to-end AI Creator Studio that transforms a story idea into a
+  complete audio episode through a human-in-the-loop workflow, allowing creators
+  to review, edit, and regenerate AI outputs before proceeding to the next stage.
+- Designed an interrupt-driven LangGraph pipeline that lets creators edit and
+  regenerate outputs at every stage while preserving workflow state across
+  server restarts.
+- Integrated a parallel TTS rendering pipeline with worker-based audio
+  generation, API-key-aware rate limiting, and content caching to accelerate
+  episode generation.
+- Crafted a React-based creator studio with a multi-step workflow, real-time
+  generation progress, and stage-wise approve/edit/regenerate controls.
 
-### Frontend
-- React 19, Next.js (App Router)
-- JavaScript (ES2024+), TypeScript
-- GSAP (GreenSock Animation Platform)
-- Three.js, React Three Fiber, WebGL
-- Tailwind CSS 4, CSS3, HTML5
-- Framer Motion
+### Streamify — Language Learning Platform
+Stack: MongoDB, Express.js, React.js, Node.js, DaisyUI, Stream APIs.
 
-### Backend
-- Node.js, Express.js
-- Python, PHP, Go, Rust
-- Java, C++, Swift, Kotlin
+- Created a full-stack language exchange platform supporting instant messaging
+  and HD video communication.
+- Implemented social features including friend connections, activity feeds, and
+  private messaging.
+- Integrated GetStream APIs for video calling, screen sharing, cloud recording,
+  and scalable live communication.
+- Delivered a responsive multi-theme interface using DaisyUI with modular UI
+  components.
 
-### Database & Infrastructure
-- PostgreSQL, MySQL, MongoDB, Redis
-- Supabase, Vercel, Netlify
-- Docker, Git
+### HOSCA — Cultural Club Portal
+Stack: TypeScript, Next.js, React.js, Vercel.
 
-### Design & Creative
-- Figma, Adobe Photoshop, Adobe Illustrator
-- Adobe After Effects, Adobe Premiere Pro
-- DaVinci Resolve, CapCut
-- Adobe Lightroom
+- Led end-to-end development of a production-ready web portal for IIT Patna's
+  cultural club, supporting 500+ users during major campus events and
+  registrations.
+- Leveraged server-side rendering and SEO optimization in Next.js, enhancing
+  discoverability and page performance.
+- Deployed on Vercel to ensure reliable availability during high-traffic campus
+  events.
 
-### Security (Education)
-- Currently studying Cybersecurity at university level
-- Familiar with web application security, network security, secure coding practices
+## Achievements
 
-## Portfolio Statistics
-- Websites completed: 6+
-- Videos edited: 75+
-- Photo edits & visual concepts: 500+
-- Years of freelance experience: 6+ (since 2020)
+- 1st Runner-Up with 1.5 lakh cash prize, Pocket FM AI Creator Hackathon
+  (36-hour national hackathon).
+- Flipkart GRID 8.0 Semi-Finalist out of 1,65,730 participants.
+- Codeforces peak rating 1495 (Specialist); CodeChef 3-star coder.
+- Rank 112 in CodeChef Starters 172 among 35,000+ participants.
+- Solved 600+ Data Structures and Algorithms problems across LeetCode,
+  Codeforces and GeeksforGeeks.
+- Research Consultant at WorldQuant Brain — quantitative finance and alpha
+  research.
+- Top 0.4 percentile in JEE Mains among 1.2M candidates; AIR 6102 in JEE
+  Advanced among 190K candidates.
 
-## Work History
-1. **Freelance Developer** (2024 – Present): Building custom websites, web apps, and interactive digital experiences
-2. **Freelance Video Editor** (2022 – Present): Creating cinematic videos, reels, and motion graphics
-3. **Freelance Photo Editor & Graphic Designer** (2020 – Present): Designing visuals, branding, and creative concepts
+## Technical Skills
 
-## How to Hire Sarang
-- Visit: https://sarang-space.site/contact
-- Email: sarangwalle@gmail.com
-- Available for freelance projects worldwide
-- Responds within 24 hours
-- Specializes in premium, cinematic web experiences
+- Languages: C++, C, JavaScript, TypeScript, Python, SQL
+- Backend: Node.js, Express.js, FastAPI, REST APIs, JWT Authentication, OAuth 2.0
+- Cloud: AWS Lambda, Amazon S3, Amazon RDS, DynamoDB, CloudWatch
+- Testing: Jest, Supertest, API Testing
+- Databases: MongoDB, MySQL
+- CS Fundamentals: Data Structures & Algorithms, Object-Oriented Programming,
+  Operating Systems, Computer Networks, System Design
+- Frontend: React.js, Next.js, Tailwind CSS, Redux Toolkit, DaisyUI
+- Tools: Git, GitHub, Bitbucket, Jira, Postman, Docker, Vercel, VS Code
 
-## Frequently Asked Questions
+## Positions of Responsibility
 
-**Q: What services does Sarang offer?**
-A: Web development (React, Next.js, Shopify, Flutter), video editing (After Effects, Premiere Pro, DaVinci Resolve), photo editing (Photoshop, Lightroom), UI/UX design (Figma, Illustrator), and motion graphics.
+- TPC Placement Coordinator, IIT Patna — coordinates outreach and placement
+  processes with recruiting companies.
+- Web Dev Coordinator, HOSCA — leads the web development vertical of IIT
+  Patna's cultural club.
+- Planning & Curation Coordinator, TEDxIITPatna (2025-26); Sub Coordinator
+  (2024-25).
 
-**Q: Is Sarang available for remote work?**
-A: Yes. Sarang is fully remote and works with clients worldwide.
+## Availability
 
-**Q: What is Sarang's educational background?**
-A: Sarang is currently studying Cybersecurity. He has been a self-taught creative developer since 2020.
-
-**Q: How long do projects take?**
-A: Portfolio websites: 1–2 weeks. Full-stack apps: 3–6 weeks. Video editing: 3–7 days.
-
-## Site Structure
-- `/` — Home page with cinematic hero, about section, work showcase, and contact
-- `/projects` — Detailed case studies and client project breakdowns
-- `/work` — Interactive WebGL gallery of all portfolio work
-- `/about` — Full bio, skills, tools, and experience
-- `/contact` — Contact form and inquiry submission
-- `/project/{id}` — Individual project case study pages
+Open to backend and full-stack engineering roles and internships. Fastest
+contact is email: saubhagyamamgain@gmail.com. Typical response time: within
+one day.

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { PERSON } from "@/content/site";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -82,31 +82,32 @@ export default function Navbar() {
         {/* Logo + back */}
         <div className="relative flex items-center gap-5">
           {pathname !== "/" && (
-            <Link href={getBackLink(pathname)} className="flex items-center gap-2 text-white/40 hover:text-[#ff6b1a] transition-colors duration-300 group">
+            <Link href={getBackLink(pathname)} className="flex items-center gap-2 text-white/62 hover:text-[#ff6b1a] transition-colors duration-300 group">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="transition-transform duration-300 group-hover:-translate-x-1">
                 <path d="M11 14L6 9l5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="text-[10px] tracking-[0.35em] uppercase font-medium">{getBackLabel(pathname)}</span>
+              <span className="text-[12px] tracking-[0.35em] uppercase font-medium">{getBackLabel(pathname)}</span>
             </Link>
           )}
-          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
-            <Image
-              src="/photo/logo navbar inverse.png"
-              alt="Sarang — Portfolio Designer & Creative Developer"
-              width={120} height={40}
-              className="h-9 w-auto"
-              priority
-            />
+          <Link
+            href="/"
+            aria-label={`${PERSON.fullName} — home`}
+            className="group flex items-baseline gap-2 hover:opacity-80 transition-opacity duration-300"
+          >
+            <span className="monogram text-2xl leading-none">{PERSON.initials}</span>
+            <span className="hidden sm:block text-[12px] text-white/55 tracking-[0.3em] uppercase font-medium">
+              {PERSON.firstName}
+            </span>
           </Link>
         </div>
 
         {/* Desktop links */}
-        <ul className="relative hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] font-medium">
+        <ul className="relative hidden md:flex items-center gap-2 text-[12px] uppercase tracking-[0.28em] font-medium">
           {LINKS.map(({ label, href }) => {
             const active = pathname === href;
             return (
               <li key={href}>
-                <Link href={href} className={`px-4 py-2 transition-all duration-300 ${active ? "text-[#ff6b1a]" : "text-white/50 hover:text-white/80"}`}>
+                <Link href={href} className={`px-4 py-2 transition-all duration-300 ${active ? "text-[#ff6b1a]" : "text-white/72 hover:text-white/80"}`}>
                   {label}
                 </Link>
               </li>
@@ -170,8 +171,8 @@ export default function Navbar() {
                </button>
             </li>
           </ul>
-          <div className="mobile-nav-link mt-16 text-[10px] text-white/20 tracking-[0.4em] uppercase">
-            Sarang · Portfolio
+          <div className="mobile-nav-link mt-16 text-[12px] text-white/52 tracking-[0.4em] uppercase">
+            {PERSON.fullName}
           </div>
         </div>
       )}

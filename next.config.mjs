@@ -8,36 +8,26 @@ const nextConfig = {
   // ── Experimental ─────────────────────────────────────────────────
   experimental: {
     optimizeCss: true,
+    // Tree-shake the icon barrels. Without this, importing a handful of icons
+    // pulls in thousands of modules and noticeably slows dev compiles.
+    optimizePackageImports: ["react-icons", "gsap", "framer-motion"],
   },
 
   // ── Image optimisation ────────────────────────────────────────────
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "avatars.githubusercontent.com" },
-    ],
   },
 
-  // ── SEO, Cache & AI Crawler headers ──────────────────────────────
+  // ── SEO & cache headers ──────────────────────────────────────────
   async headers() {
     return [
       {
-        // Long-lived cache for videos
-        source: "/videos/:path*",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
-      {
-        // Long-lived cache for images/photos
         source: "/photo/:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
-
       {
         source: "/llms.txt",
         headers: [
@@ -64,7 +54,10 @@ const nextConfig = {
       {
         source: "/((?!api|_next|admin).*)",
         headers: [
-          { key: "X-Robots-Tag", value: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow, max-image-preview:large, max-snippet:-1",
+          },
         ],
       },
     ];

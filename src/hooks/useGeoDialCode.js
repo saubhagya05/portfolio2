@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { COUNTRIES } from "@/app/contact/content";
+import { COUNTRIES } from "@/content/site";
 
 // Silently detects country dial code from IP — no prompt shown to user.
 export function useGeoDialCode() {

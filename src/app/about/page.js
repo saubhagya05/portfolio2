@@ -1,22 +1,28 @@
 import PageShell from "@/components/PageShell";
 import AboutPage from "@/views/about";
+import Footer from "@/components/Footer";
 
 export const metadata = {
-  title:       "About — Freelance Website Developer, Video Editor & Photo Editor from India",
-  description: "Meet Sarang — a 19-year-old freelance website developer, video editor, and photo editor from India. Expert in React, Next.js, GSAP, After Effects, Premiere Pro, Photoshop, and Figma. Available for hire worldwide.",
-  keywords:    ["freelance web developer India", "video editor for hire", "photo editor freelance", "portfolio designer", "creative developer", "Sarang about"],
-  alternates:  { canonical: "https://sarang-space.site/about" },
+  title: "About",
+  description:
+    "Saubhagya Laxman Mamgain — backend and full-stack engineer, final-year Electrical & Electronics Engineering at IIT Patna. AWS Lambda, Node.js, Express, MongoDB, Next.js. Codeforces Specialist with 600+ DSA problems solved.",
+  keywords: [
+    "backend engineer India", "Node.js developer", "AWS Lambda developer",
+    "IIT Patna", "full stack developer", "competitive programmer",
+  ],
+  alternates: { canonical: "/about" },
   openGraph: {
-    title: "About Sarang — Freelance Website Developer, Video Editor & Photo Editor",
-    description: "19-year-old creative developer from India specializing in cinematic websites, video editing, and visual design. Hire for freelance projects worldwide.",
+    title: "About — Saubhagya Laxman Mamgain",
+    description:
+      "Backend and full-stack engineer building serverless APIs, subscription systems and production web apps. Final-year EEE at IIT Patna.",
   },
 };
 
 export default function Page() {
   return (
     <PageShell>
-      <style>{`.bottom-blur { display: none !important; }`}</style>
       <AboutPage />
+      <Footer />
     </PageShell>
   );
 }

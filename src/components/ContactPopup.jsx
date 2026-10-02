@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FiX, FiMail, FiArrowLeft, FiSend, FiCheck } from "react-icons/fi";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { useGeoDialCode } from "@/hooks/useGeoDialCode";
-import { COUNTRIES } from "@/app/contact/content";
+import { COUNTRIES } from "@/content/site";
 
 // step: "choose" | "email" | "whatsapp"
 export default function ContactPopup({ isOpen, onClose }) {
@@ -54,7 +54,7 @@ export default function ContactPopup({ isOpen, onClose }) {
     onClose();
   };
 
-  const inputCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ff6b1a]/50 transition-colors duration-200 text-sm";
+  const inputCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/52 focus:outline-none focus:border-[#ff6b1a]/50 transition-colors duration-200 text-base";
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
@@ -63,7 +63,7 @@ export default function ContactPopup({ isOpen, onClose }) {
       <div className="relative bg-[#0a0a0a] border border-white/10 rounded-3xl p-7 md:p-10 max-w-md w-full shadow-2xl">
 
         {/* Close */}
-        <button onClick={onClose} className="absolute top-5 right-5 text-white/30 hover:text-white transition-colors">
+        <button onClick={onClose} className="absolute top-5 right-5 text-white/60 hover:text-white transition-colors">
           <FiX size={20} />
         </button>
 
@@ -71,7 +71,7 @@ export default function ContactPopup({ isOpen, onClose }) {
         {step !== "choose" && (
           <button
             onClick={() => { setStep("choose"); setStatus("idle"); }}
-            className="absolute top-5 left-5 text-white/30 hover:text-white transition-colors flex items-center gap-1.5 text-[11px] uppercase tracking-widest"
+            className="absolute top-5 left-5 text-white/60 hover:text-white transition-colors flex items-center gap-1.5 text-[12px] uppercase tracking-widest"
           >
             <FiArrowLeft size={13} /> Back
           </button>
@@ -81,7 +81,7 @@ export default function ContactPopup({ isOpen, onClose }) {
         {step === "choose" && (
           <>
             <h3 className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-2 mt-1">Let's Talk.</h3>
-            <p className="text-white/35 text-sm mb-7 leading-relaxed">
+            <p className="text-white/55 text-base mb-7 leading-relaxed">
               How would you like to reach out?
             </p>
             <div className="flex flex-col gap-3">
@@ -93,8 +93,8 @@ export default function ContactPopup({ isOpen, onClose }) {
                   <FiMail size={18} />
                 </div>
                 <div>
-                  <p className="text-white font-bold text-sm">Email</p>
-                  <p className="text-white/35 text-xs mt-0.5">Send a message to my inbox</p>
+                  <p className="text-white font-bold text-base">Email</p>
+                  <p className="text-white/55 text-sm mt-0.5">Send a message to my inbox</p>
                 </div>
               </button>
 
@@ -106,8 +106,8 @@ export default function ContactPopup({ isOpen, onClose }) {
                   <IoLogoWhatsapp size={20} />
                 </div>
                 <div>
-                  <p className="text-white font-bold text-sm">WhatsApp</p>
-                  <p className="text-white/35 text-xs mt-0.5">Chat directly on WhatsApp</p>
+                  <p className="text-white font-bold text-base">WhatsApp</p>
+                  <p className="text-white/55 text-sm mt-0.5">Chat directly on WhatsApp</p>
                 </div>
               </button>
             </div>
@@ -123,7 +123,7 @@ export default function ContactPopup({ isOpen, onClose }) {
               </div>
               <div>
                 <h3 className="text-white font-black tracking-tight text-lg">Email Me</h3>
-                <p className="text-white/30 text-xs">I'll reply within 24 hours</p>
+                <p className="text-white/60 text-sm">I'll reply within 24 hours</p>
               </div>
             </div>
 
@@ -133,18 +133,18 @@ export default function ContactPopup({ isOpen, onClose }) {
                   <FiCheck size={24} className="text-[#ff6b1a]" />
                 </div>
                 <p className="text-white font-bold">Message sent!</p>
-                <p className="text-white/35 text-sm">I'll get back to you soon.</p>
+                <p className="text-white/55 text-base">I'll get back to you soon.</p>
               </div>
             ) : (
               <form onSubmit={handleEmail} className="flex flex-col gap-3">
                 <input suppressHydrationWarning className={inputCls} placeholder="Your name" required value={name} onChange={e => setName(e.target.value)} />
                 <textarea suppressHydrationWarning className={inputCls + " resize-none"} rows={4} placeholder="What's the project about?" required value={reason} onChange={e => setReason(e.target.value)} />
-                {status === "error" && <p className="text-red-400 text-xs">Something went wrong. Try again.</p>}
+                {status === "error" && <p className="text-red-400 text-sm">Something went wrong. Try again.</p>}
                 <button
                   suppressHydrationWarning
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full py-3.5 bg-[#ff6b1a] text-black font-bold rounded-xl text-sm uppercase tracking-widest hover:bg-white transition-colors duration-300 disabled:opacity-50 flex items-center justify-center gap-2 mt-1"
+                  className="w-full py-3.5 bg-[#ff6b1a] text-black font-bold rounded-xl text-base uppercase tracking-widest hover:bg-white transition-colors duration-300 disabled:opacity-50 flex items-center justify-center gap-2 mt-1"
                 >
                   <FiSend size={14} />
                   {status === "sending" ? "Sending…" : "Send Message"}
@@ -163,7 +163,7 @@ export default function ContactPopup({ isOpen, onClose }) {
               </div>
               <div>
                 <h3 className="text-white font-black tracking-tight text-lg">WhatsApp</h3>
-                <p className="text-white/30 text-xs">Opens WhatsApp with your message</p>
+                <p className="text-white/60 text-sm">Opens WhatsApp with your message</p>
               </div>
             </div>
 
@@ -176,11 +176,11 @@ export default function ContactPopup({ isOpen, onClose }) {
                     const next = COUNTRIES[(COUNTRIES.indexOf(selectedCC) + 1) % COUNTRIES.length];
                     setSelectedCC(next);
                   }}
-                  className="shrink-0 flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-xl px-3 py-3 text-sm text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                  className="shrink-0 flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-xl px-3 py-3 text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                   title="Change country code"
                 >
                   <span>{selectedCC.flag}</span>
-                  <span className="text-white/40 text-xs">+{selectedCC.code}</span>
+                  <span className="text-white/62 text-sm">+{selectedCC.code}</span>
                 </button>
                 <input
                   suppressHydrationWarning
@@ -195,7 +195,7 @@ export default function ContactPopup({ isOpen, onClose }) {
               <button
                 suppressHydrationWarning
                 type="submit"
-                className="w-full py-3.5 bg-[#25D366] text-black font-bold rounded-xl text-sm uppercase tracking-widest hover:bg-white transition-colors duration-300 flex items-center justify-center gap-2 mt-1"
+                className="w-full py-3.5 bg-[#25D366] text-black font-bold rounded-xl text-base uppercase tracking-widest hover:bg-white transition-colors duration-300 flex items-center justify-center gap-2 mt-1"
               >
                 <IoLogoWhatsapp size={16} />
                 Open WhatsApp

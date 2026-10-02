@@ -2,10 +2,16 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
+// Analytics is opt-in. Without a real Supabase project these requests just hang
+// on DNS and stall the page, so they stay off unless you explicitly enable them
+// by setting NEXT_PUBLIC_ENABLE_ANALYTICS=true in .env.local.
+const ENABLED = process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === 'true';
+
 export default function TrackVisit() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!ENABLED) return;
     if (pathname?.startsWith('/admin')) return;
 
     const source = new URLSearchParams(window.location.search).get('source') || '';
@@ -28,42 +34,37 @@ export default function TrackVisit() {
       }).catch(() => {});
     }
 
-    // Live Users Ping Logic
-    if (typeof window !== 'undefined') {
-      if (!window.sessionTrackingId) {
-        window.sessionTrackingId = crypto.randomUUID();
-      }
-      
-      const ping = () => {
-        fetch('/api/analytics/ping', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId: window.sessionTrackingId, page: pathname }),
-          keepalive: true
-        }).catch(() => {});
-      };
-      
-      ping(); // Initial ping
-      const interval = setInterval(ping, 30000); // Ping every 30 seconds to save DB usage
-      
-      const cleanup = () => {
-        fetch('/api/analytics/ping-leave', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId: window.sessionTrackingId }),
-          keepalive: true
-        }).catch(() => {});
-      };
-      
-      window.addEventListener('beforeunload', cleanup);
-      return () => {
-        clearInterval(interval);
-        window.removeEventListener('beforeunload', cleanup);
-        // We don't call cleanup() here because it's just a route change, 
-        // the session is still active, it just changed pages. 
-        // The new pathname will trigger a new useEffect and ping immediately.
-      };
+    // Live users ping
+    if (!window.sessionTrackingId) {
+      window.sessionTrackingId = crypto.randomUUID();
     }
+
+    const ping = () => {
+      fetch('/api/analytics/ping', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId: window.sessionTrackingId, page: pathname }),
+        keepalive: true,
+      }).catch(() => {});
+    };
+
+    ping();
+    const interval = setInterval(ping, 30000);
+
+    const cleanup = () => {
+      fetch('/api/analytics/ping-leave', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId: window.sessionTrackingId }),
+        keepalive: true,
+      }).catch(() => {});
+    };
+
+    window.addEventListener('beforeunload', cleanup);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('beforeunload', cleanup);
+    };
   }, [pathname]);
 
   return null;

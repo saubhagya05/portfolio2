@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Constructed lazily: the Resend SDK throws at import time when the key is
+// missing, which would break `next build` on a machine without one.
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 const DAILY_LIMIT = 3;
 
@@ -21,16 +23,26 @@ export async function POST(request) {
     return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
   }
 
+  // Mail delivery needs a Resend API key; without it there is nowhere to send.
+  if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY.includes('placeholder')) {
+    return NextResponse.json(
+      { error: 'The contact form is not configured yet.' },
+      { status: 503 }
+    );
+  }
+
   // ── Rate limit: max 3 per IP per day ──────────────────────────
   const ip = getIP(request);
   const dayStart = new Date();
   dayStart.setHours(0, 0, 0, 0);
 
-  const { count } = await supabase
-    .from('inquiries')
-    .select('*', { count: 'exact', head: true })
-    .eq('ip', ip)
-    .gte('created_at', dayStart.toISOString());
+  const { count } = supabase
+    ? await supabase
+        .from('inquiries')
+        .select('*', { count: 'exact', head: true })
+        .eq('ip', ip)
+        .gte('created_at', dayStart.toISOString())
+    : { count: 0 };
 
   if (count >= DAILY_LIMIT) {
     return NextResponse.json(
@@ -41,14 +53,17 @@ export async function POST(request) {
 
   try {
     // Save to Supabase (include ip for rate limiting)
-    const { error: dbError } = await supabase.from('inquiries').insert([{ name, email, message, ip }]);
+    const { error: dbError } = supabase
+      ? await supabase.from('inquiries').insert([{ name, email, message, ip }])
+      : { error: null };
     if (dbError) {
       console.error('Supabase insert error:', dbError);
     }
 
     // Send email
-    const { data, error: emailError } = await resend.emails.send({
-      from: 'Portfolio Contact <support@sarang-space.site>',
+    const { data, error: emailError } = await getResend().emails.send({
+      // Resend's shared test sender. Swap for an address on your own verified domain.
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: process.env.ADMIN_EMAIL,
       replyTo: email,
       subject: `New message from ${name}`,

@@ -1,16 +1,15 @@
 export default function manifest() {
   return {
-    name:             "Sarang — Creative Developer",
-    short_name:       "Sarang",
-    description:      "Cinematic digital experiences at the intersection of design and code.",
+    name:             "Saubhagya Mamgain — Backend & Full-Stack Engineer",
+    short_name:       "Saubhagya",
+    description:      "Backend and full-stack engineer. Serverless APIs, Node.js services, and Next.js products.",
     start_url:        "/",
     display:          "standalone",
-    background_color: "#080808",
+    background_color: "#08080a",
     theme_color:      "#ff6b1a",
     lang:             "en",
     icons: [
-      { src: "/photo/favicon.png", sizes: "192x192", type: "image/png" },
-      { src: "/photo/favicon.png", sizes: "512x512", type: "image/png" },
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
     ],
   };
 }
