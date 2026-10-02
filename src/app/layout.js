@@ -1,6 +1,5 @@
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import TrackVisit from "@/components/TrackVisit";
 import { Analytics } from "@vercel/analytics/next";
 import { getSiteUrl } from "@/lib/siteUrl";
 
@@ -223,7 +222,6 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body>
-        <TrackVisit />
         {children}
         <Analytics />
       </body>

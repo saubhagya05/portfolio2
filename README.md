@@ -51,36 +51,36 @@ and positions all live there. Edit that file, not the components.
 4. **Project links** — each entry in `PROJECTS` has `repo` and `live` fields,
    both `null`. Fill them in and the Code / Live buttons appear.
 
-## Optional services
+## No backend
 
-All optional. The site runs fully without them; configure in `.env.local`.
+The site is fully static. Every route prerenders to HTML at build time — there
+are no API routes, no database, no middleware and no serverless functions. The
+template this was forked from shipped a Supabase-backed admin panel, visitor
+analytics and a server-side contact form; all of it was removed.
 
-| Variable | Enables |
+The contact form opens a pre-filled draft in the visitor's own mail app, so it
+works with no service behind it and nothing is sent until they press send.
+
+| Variable | Needed for |
 | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` | Admin panel, visitor analytics, DB-backed projects |
-| `RESEND_API_KEY` | Contact form email delivery |
-| `JWT_SECRET` | Admin panel session cookie (generate with `node generate-secret.js`) |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL in metadata, sitemap and robots.txt |
-| `NEXT_PUBLIC_ENABLE_ANALYTICS` | Set `true` to turn on visitor tracking (needs Supabase) |
-
-Without `RESEND_API_KEY` the contact form returns a clear "not configured"
-message and the UI falls back to showing the email address directly.
-
-The Supabase schema for the admin panel is in [`supabase/`](supabase/).
+| `NEXT_PUBLIC_SITE_URL` | Canonical URLs once you have a custom domain. Optional on Vercel, which supplies its own domain as a fallback. |
 
 ## Deploying
 
-Set `NEXT_PUBLIC_SITE_URL` to the real domain before deploying — metadata,
-canonical URLs, `sitemap.xml`, `robots.txt` and the JSON-LD all read from it.
+Import the repo on Vercel and accept every default. Root Directory stays `./`,
+framework auto-detects as Next.js. Nothing needs configuring.
+
+Set `NEXT_PUBLIC_SITE_URL` once you point a custom domain at it.
 
 ## Structure
 
 ```
 src/
   content/site.js      all site content — start here
-  app/                 routes, metadata, API routes, admin panel
-  components/          Backdrop, Hero, About, Work, Achievements, Contact, …
+  app/                 routes and metadata
+  components/          Backdrop, Hero, Experience, Work, Achievements, Contact, …
   views/               full-page views for /about, /contact, /projects
+  lib/                 siteUrl + mail-draft helpers
 public/
   llms.txt             machine-readable profile for AI crawlers
   llms-full.txt        full profile

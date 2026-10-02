@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { openMailDraft } from "@/lib/composeMail";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CONTACT, PERSON, SOCIAL_LINKS } from "@/content/site";
 
@@ -13,30 +14,11 @@ export default function Contact() {
   const ref = useRef(null);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
-  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus("sending");
-    setErrorMsg("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setStatus("sent");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        const data = await res.json().catch(() => ({}));
-        setStatus("error");
-        setErrorMsg(data.error || "Could not send. Email me directly instead.");
-      }
-    } catch {
-      setStatus("error");
-      setErrorMsg("Could not send. Email me directly instead.");
-    }
+    openMailDraft({ to: PERSON.email, ...form });
+    setStatus("sent");
   };
 
   useEffect(() => {
@@ -123,28 +105,28 @@ export default function Contact() {
               <button
                 suppressHydrationWarning
                 type="submit"
-                disabled={status === "sending"}
                 className="contact-field group mt-2 inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#ff6b1a] text-black text-[12px] font-black uppercase tracking-[0.18em] rounded-full hover:bg-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === "sending" ? "Sending…" : status === "sent" ? "Message sent ✓" : "Send message"}
-                {status === "idle" && (
+                {status === "sent" ? "Draft opened ✓" : "Compose message"}
+                {status !== "sent" && (
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="transition-transform duration-300 group-hover:translate-x-0.5">
                     <path d="M2.5 6.5h8M7.5 3l3.5 3.5L7.5 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
               </button>
-
-              {status === "error" && (
-                <p className="text-[12px] text-red-400/80 leading-relaxed">
-                  {errorMsg}{" "}
-                  <a href={`mailto:${PERSON.email}`} className="underline hover:text-red-300">
+              {status === "sent" ? (
+                <p className="text-[12px] text-[#ff6b1a]/90 leading-relaxed">
+                  Your mail app should have opened with the message ready. If it
+                  didn&rsquo;t, write to{" "}
+                  <a href={`mailto:${PERSON.email}`} className="underline hover:text-[#ff6b1a]">
                     {PERSON.email}
                   </a>
+                  .
                 </p>
-              )}
-              {status === "sent" && (
-                <p className="text-[12px] text-[#ff6b1a]/90">
-                  Thanks — I&rsquo;ll get back to you within a day.
+              ) : (
+                <p className="text-[12px] text-white/48 leading-relaxed">
+                  This opens a draft in your own mail app — nothing is sent until
+                  you press send.
                 </p>
               )}
             </form>

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { FiX, FiMail, FiArrowLeft, FiSend, FiCheck } from "react-icons/fi";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { useGeoDialCode } from "@/hooks/useGeoDialCode";
-import { COUNTRIES } from "@/content/site";
+import { COUNTRIES, PERSON } from "@/content/site";
+import { openMailDraft } from "@/lib/composeMail";
 
 // step: "choose" | "email" | "whatsapp"
 export default function ContactPopup({ isOpen, onClose }) {
@@ -30,22 +31,15 @@ export default function ContactPopup({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleEmail = async (e) => {
+  const handleEmail = (e) => {
     e.preventDefault();
-    setStatus("sending");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email: "", message: reason }),
-      });
-      setStatus(res.ok ? "sent" : "error");
-    } catch { setStatus("error"); }
+    openMailDraft({ to: PERSON.email, name, email: "", message: reason });
+    setStatus("sent");
   };
 
   const handleWhatsApp = (e) => {
     e.preventDefault();
-    const num = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919999999999";
+    const num = PERSON.phoneRaw;
     const fullPhone = phone ? `+${selectedCC.code} ${phone}` : "(not provided)";
     const msg = encodeURIComponent(
       `Hi! My name is ${name}.\n\nMy number: ${fullPhone}\n\nReason: ${reason}`

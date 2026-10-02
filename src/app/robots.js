@@ -6,7 +6,6 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api/admin", "/coming-soon"],
       },
       // ── Explicitly allow all major AI / LLM crawlers ──
       { userAgent: "GPTBot",        allow: "/" },
