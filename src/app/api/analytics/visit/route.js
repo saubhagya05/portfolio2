@@ -7,6 +7,10 @@ function isPrivateIP(ip) {
 }
 
 export async function POST(request) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
     const { page, referrer, source } = await request.json();
     const userAgent = request.headers.get('user-agent') || '';

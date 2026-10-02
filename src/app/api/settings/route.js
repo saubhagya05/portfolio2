@@ -15,6 +15,10 @@ async function isAdmin() {
 }
 
 export async function GET(request) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   const { searchParams } = new URL(request.url);
   const key = searchParams.get('key');
   let query = supabase.from('settings').select('*');
@@ -24,6 +28,10 @@ export async function GET(request) {
 }
 
 export async function PATCH(request) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

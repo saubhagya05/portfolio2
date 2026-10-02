@@ -2,6 +2,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import TrackVisit from "@/components/TrackVisit";
 import { Analytics } from "@vercel/analytics/next";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const playfair = Playfair_Display({
@@ -11,8 +12,8 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-// Change this to your real domain when you deploy.
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+// Resolved from NEXT_PUBLIC_SITE_URL, then the Vercel-provided domain.
+const BASE = getSiteUrl();
 
 const NAME = "Saubhagya Laxman Mamgain";
 const SHORT = "Saubhagya";

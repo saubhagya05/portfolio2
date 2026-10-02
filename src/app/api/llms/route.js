@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+import { getSiteUrl } from "@/lib/siteUrl";
+
+const BASE = getSiteUrl();
 
 /**
  * Machine-readable profile for AI crawlers and agents.

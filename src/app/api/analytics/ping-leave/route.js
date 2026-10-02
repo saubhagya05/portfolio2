@@ -2,6 +2,10 @@ import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
     const { sessionId } = await req.json();
     if (!sessionId) return NextResponse.json({ success: false }, { status: 400 });

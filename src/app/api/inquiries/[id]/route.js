@@ -17,6 +17,10 @@ async function isAdmin() {
 }
 
 export async function PATCH(request, { params }) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const body = await request.json();
   const { data: inquiry } = await supabase.from('inquiries').update(body).eq('id', params.id).select().single();
@@ -24,6 +28,10 @@ export async function PATCH(request, { params }) {
 }
 
 export async function DELETE(_, { params }) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   await supabase.from('inquiries').delete().eq('id', params.id);
   return NextResponse.json({ success: true });

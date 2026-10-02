@@ -1,3 +1,5 @@
+import { getSiteUrl } from "@/lib/siteUrl";
+
 export default function robots() {
   return {
     rules: [
@@ -29,6 +31,6 @@ export default function robots() {
       { userAgent: "iaskspider",    allow: "/" },
       { userAgent: "YouBot",        allow: "/" },
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/sitemap.xml`,
+    sitemap: `${getSiteUrl()}/sitemap.xml`,
   };
 }

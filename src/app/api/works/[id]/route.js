@@ -17,6 +17,10 @@ async function isAdmin() {
 }
 
 export async function GET(request, { params }) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   const { id } = await params;
   const { data: work, error } = await supabase
     .from('works')
@@ -28,6 +32,10 @@ export async function GET(request, { params }) {
 }
 
 export async function PATCH(request, { params }) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -44,6 +52,10 @@ export async function PATCH(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

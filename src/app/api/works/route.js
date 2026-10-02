@@ -47,6 +47,10 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) {
     console.error('[POST /api/works] Unauthorized — no valid admin_token cookie');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

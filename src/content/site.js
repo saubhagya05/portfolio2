@@ -36,9 +36,6 @@ export const PERSON = {
   initials:  "SM",
 };
 
-// The canonical URL of the deployed site. Change this when you deploy.
-export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
 // ─────────────────────────────────────────────────────────────
 //  SOCIAL / PROFILE LINKS
 //  >>> REPLACE THE PLACEHOLDERS BELOW WITH YOUR REAL URLS <<<

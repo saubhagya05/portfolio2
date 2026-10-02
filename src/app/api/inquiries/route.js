@@ -17,6 +17,10 @@ async function isAdmin() {
 }
 
 export async function GET(request) {
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   
   const { data: inquiries } = await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
