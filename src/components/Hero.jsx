@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BlurText from "./BlurText";
-import { HERO, STATS, PERSON } from "@/content/site";
+import { HERO, PERSON, SOCIAL_LINKS } from "@/content/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +25,7 @@ export default function Hero() {
           ease: "power4.out",
         }, 0.3)
         .from(".hero-sub",  { y: 24, opacity: 0, duration: 0.7 }, 0.7)
-        .from(".hero-stat", { y: 18, opacity: 0, stagger: 0.07, duration: 0.5 }, 0.9);
+        .from(".hero-link", { y: 18, opacity: 0, stagger: 0.06, duration: 0.5 }, 0.9);
 
       // Fade the hero out as it leaves — one scrubbed tween, not a per-frame loop
       gsap.to(ref.current, {
@@ -104,19 +104,23 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Stats strip */}
-        <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-8 max-w-2xl">
-          {STATS.map((s) => (
-            <div key={s.label} className="hero-stat">
-              <p className="text-2xl md:text-3xl font-black tracking-tighter text-white tabular-nums">
-                {s.value}
-              </p>
-              <p className="mt-1.5 text-[12px] md:text-[12px] text-white/55 tracking-[0.22em] uppercase leading-relaxed">
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </div>
+        {/* Profiles */}
+        {SOCIAL_LINKS.length > 0 && (
+          <div className="mt-16 flex flex-wrap gap-2.5 max-w-2xl">
+            {SOCIAL_LINKS.map(({ key, label, url, icon: Icon }) => (
+              <a
+                key={key}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-link group inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/12 text-[12px] text-white/70 tracking-widest uppercase transition-colors duration-300 hover:bg-white hover:text-[#ff6b1a] hover:border-white"
+              >
+                <Icon className="w-3.5 h-3.5 shrink-0" />
+                {label}
+              </a>
+            ))}
+          </div>
+        )}
 
         <p className="mt-16 text-[12px] text-white/60 tracking-[0.42em] uppercase font-medium">
           {HERO.scrollHint} &darr;

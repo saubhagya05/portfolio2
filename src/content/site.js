@@ -10,7 +10,7 @@ import {
   SiMongodb, SiMysql, SiJest, SiPostman,
   SiReact, SiNextdotjs, SiTailwindcss, SiRedux, SiDaisyui,
   SiGit, SiGithub, SiBitbucket, SiJira, SiVercel, SiDocker,
-  SiCodeforces, SiLeetcode, SiCodechef,
+  SiCodeforces, SiLeetcode, SiGeeksforgeeks,
 } from "react-icons/si";
 import { FaAws, FaLinkedin } from "react-icons/fa6";
 import {
@@ -43,22 +43,22 @@ export const PERSON = {
 //  and is hidden from the UI instead of rendering a dead link.
 // ─────────────────────────────────────────────────────────────
 export const SOCIALS = {
-  github:     "https://github.com/YOUR-GITHUB-USERNAME",
-  linkedin:   "https://linkedin.com/in/YOUR-LINKEDIN-HANDLE",
-  codeforces: "https://codeforces.com/profile/YOUR-CF-HANDLE",
-  leetcode:   "https://leetcode.com/u/YOUR-LEETCODE-HANDLE",
-  codechef:   "https://codechef.com/users/YOUR-CODECHEF-HANDLE",
+  linkedin:      "https://www.linkedin.com/in/saubhagya-laxman-mamgain-14492b27b/",
+  github:        "https://github.com/saubhagya05",
+  codeforces:    "https://codeforces.com/profile/krypnokart",
+  leetcode:      "https://leetcode.com/u/saubhagyamamgain/",
+  geeksforgeeks: "https://www.geeksforgeeks.org/profile/saubhagya9fdn?tab=activity",
 };
 
 export const PLACEHOLDER_MARKER = "YOUR-";
 export const isLive = (url) => Boolean(url) && !url.includes(PLACEHOLDER_MARKER);
 
 export const SOCIAL_LINKS = [
-  { key: "github",     label: "GitHub",     url: SOCIALS.github,     icon: SiGithub },
-  { key: "linkedin",   label: "LinkedIn",   url: SOCIALS.linkedin,   icon: FaLinkedin },
-  { key: "codeforces", label: "Codeforces", url: SOCIALS.codeforces, icon: SiCodeforces },
-  { key: "leetcode",   label: "LeetCode",   url: SOCIALS.leetcode,   icon: SiLeetcode },
-  { key: "codechef",   label: "CodeChef",   url: SOCIALS.codechef,   icon: SiCodechef },
+  { key: "linkedin",      label: "LinkedIn",      url: SOCIALS.linkedin,      icon: FaLinkedin },
+  { key: "github",        label: "GitHub",        url: SOCIALS.github,        icon: SiGithub },
+  { key: "codeforces",    label: "Codeforces",    url: SOCIALS.codeforces,    icon: SiCodeforces },
+  { key: "leetcode",      label: "LeetCode",      url: SOCIALS.leetcode,      icon: SiLeetcode },
+  { key: "geeksforgeeks", label: "GeeksforGeeks", url: SOCIALS.geeksforgeeks, icon: SiGeeksforgeeks },
 ].filter((s) => isLive(s.url));
 
 // ─────────────────────────────────────────────────────────────
@@ -76,13 +76,6 @@ export const HERO = {
   scrollHint: "Scroll",
 };
 
-// Numbers shown as a strip under the hero.
-export const STATS = [
-  { value: "600+",  label: "DSA problems solved" },
-  { value: "1495",  label: "Codeforces peak" },
-  { value: "2",     label: "Engineering internships" },
-];
-
 // ─────────────────────────────────────────────────────────────
 //  ABOUT
 // ─────────────────────────────────────────────────────────────
@@ -96,7 +89,7 @@ export const ABOUT = {
     "I am a final-year *Electrical & Electronics Engineering* undergraduate at the *Indian Institute of Technology, Patna*, and I spend most of my time on the server side of things - designing APIs, modelling data, and making slow systems fast.",
     "I care about systems that are *correct first and fast second*, code the next person can read, and the kind of debugging that ends in understanding rather than a lucky guess.",
   ],
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "https://drive.google.com/file/d/1m0ybcI9NXweI54dShApunVhZNQIK9mFo/view?usp=sharing",
 
   // Portrait: drop an image at public/photo/portrait.webp, then flip
   // hasPortrait to true. Left false, the About page shows a designed

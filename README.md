@@ -28,28 +28,17 @@ and positions all live there. Edit that file, not the components.
 
 ### Still to fill in
 
-1. **Social links** — `SOCIALS` in `src/content/site.js` has placeholders:
+1. **Portrait** — drop an image at `public/photo/portrait.webp`, then set
+   `hasPortrait: true` in the `ABOUT` block. Until then the About section shows
+   a designed monogram placeholder.
 
-   ```js
-   github:     "https://github.com/YOUR-GITHUB-USERNAME",
-   linkedin:   "https://linkedin.com/in/YOUR-LINKEDIN-HANDLE",
-   codeforces: "https://codeforces.com/profile/YOUR-CF-HANDLE",
-   leetcode:   "https://leetcode.com/u/YOUR-LEETCODE-HANDLE",
-   codechef:   "https://codechef.com/users/YOUR-CODECHEF-HANDLE",
-   ```
-
-   Any URL still containing `YOUR-` is hidden from the UI rather than rendered
-   as a dead link, so the site looks correct until you get to them.
-
-2. **Resume** — drop your PDF at `public/resume.pdf`. The About and Projects
-   pages link to it.
-
-3. **Portrait** — drop an image at `public/photo/portrait.webp`, then set
-   `hasPortrait: true` in the `ABOUT` block. Until then the About page shows a
-   designed monogram placeholder.
-
-4. **Project links** — each entry in `PROJECTS` has `repo` and `live` fields,
+2. **Project links** — each entry in `PROJECTS` has `repo` and `live` fields,
    both `null`. Fill them in and the Code / Live buttons appear.
+
+Social links (`SOCIALS`) and the resume link (`ABOUT.resumeUrl`) are filled
+in. Any URL that still contained `YOUR-` would be hidden from the UI rather
+than rendered as a dead link — that logic stays in `isLive()` in
+`src/content/site.js` in case a link is ever pulled again.
 
 ## No backend
 
@@ -77,9 +66,8 @@ Set `NEXT_PUBLIC_SITE_URL` once you point a custom domain at it.
 ```
 src/
   content/site.js      all site content — start here
-  app/                 routes and metadata
-  components/          Backdrop, Hero, Experience, Work, Achievements, Contact, …
-  views/               full-page views for /about, /contact, /projects
+  app/page.js           the single page, in section order
+  components/          Backdrop, Hero, About, Experience, Work, Achievements, Contact, …
   lib/                 siteUrl + mail-draft helpers
 public/
   llms.txt             machine-readable profile for AI crawlers
