@@ -1,9 +1,8 @@
 "use client";
 import { useRef, useEffect } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PROJECTS, SERVICES } from "@/content/site";
+import { PROJECTS, FEATURED_SKILLS } from "@/content/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,22 +40,9 @@ export default function Work() {
           <p className="text-[12px] text-[#ff6b1a] tracking-[0.4em] uppercase mb-4 font-bold">
             Selected Work
           </p>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-            <h2
-              className="h-section font-black tracking-tighter text-white leading-none"
-            >
-              Projects.
-            </h2>
-            <Link
-              href="/projects"
-              className="shrink-0 inline-flex items-center gap-2 text-[12px] text-white/62 hover:text-[#ff6b1a] tracking-[0.3em] uppercase transition-colors duration-300 lg:pb-3"
-            >
-              All projects
-              <svg width="11" height="11" viewBox="0 0 10 10" fill="none">
-                <path d="M2 8L8 2M8 2H4M8 2v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-              </svg>
-            </Link>
-          </div>
+          <h2 className="h-section font-black tracking-tighter text-white leading-none">
+            Projects.
+          </h2>
         </div>
 
         {/* ── Project cards ── */}
@@ -151,28 +137,15 @@ export default function Work() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
-          {SERVICES.map((s) => (
-            <Link
-              key={s.num}
-              href={s.href}
-              className="work-item group panel relative overflow-hidden p-7 flex flex-col transition-colors duration-500 hover:border-white/15"
+        <div className="work-item flex flex-wrap gap-2.5">
+          {FEATURED_SKILLS.map(({ name, icon: Icon }) => (
+            <span
+              key={name}
+              className="group px-4 py-2 flex items-center gap-2 border border-white/12 rounded-full text-[12px] text-white/70 tracking-widest uppercase transition-colors duration-300 hover:bg-white hover:text-[#ff6b1a] hover:border-white cursor-default"
             >
-              <span className="absolute left-0 top-0 right-0 h-[2px] bg-[#ff6b1a] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
-
-              <span className="font-mono text-[12px] text-white/52 group-hover:text-[#ff6b1a] tracking-widest transition-colors duration-300 mb-5">
-                {s.num}
-              </span>
-              <p className="text-[12px] text-white/60 group-hover:text-[#ff6b1a]/70 tracking-[0.35em] uppercase font-light mb-2.5 transition-colors duration-300">
-                {s.label}
-              </p>
-              <h3 className="text-lg font-black text-white tracking-tight leading-tight mb-3">
-                {s.title}
-              </h3>
-              <p className="text-[16px] text-white/70 font-normal leading-[1.7] flex-1">
-                {s.description}
-              </p>
-            </Link>
+              <Icon className="w-3.5 h-3.5 shrink-0" />
+              {name}
+            </span>
           ))}
         </div>
       </div>

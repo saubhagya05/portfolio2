@@ -1,16 +1,22 @@
 "use client";
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import { PERSON, SOCIAL_LINKS } from "@/content/site";
 
+// Single-page site: these jump to sections on the same page rather than
+// linking to routes that no longer exist.
 const LINKS = [
-  { label: "Projects", href: "/projects" },
-  { label: "About",    href: "/about"    },
-  { label: "Contact",  href: "/contact"  },
+  { label: "About",      id: "about-section"        },
+  { label: "Work",       id: "work-section"         },
+  { label: "Contact",    id: "contact-section"      },
 ];
 
 export default function Footer() {
   const ref = useRef(null);
+
+  const jumpTo = (e, id) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   // Socials come from src/content/site.js now — no network request on mount.
   useEffect(() => {
@@ -59,14 +65,15 @@ export default function Footer() {
 
           <div className="flex flex-col gap-7 md:items-end">
             <nav className="flex flex-wrap gap-7 text-[12px] uppercase tracking-[0.3em] font-medium">
-              {LINKS.map(({ label, href }) => (
-                <Link
-                  key={href}
-                  href={href}
+              {LINKS.map(({ label, id }) => (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  onClick={(e) => jumpTo(e, id)}
                   className="text-white/62 hover:text-[#ff6b1a] transition-colors duration-300"
                 >
                   {label}
-                </Link>
+                </a>
               ))}
             </nav>
 

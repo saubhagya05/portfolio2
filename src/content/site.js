@@ -65,7 +65,6 @@ export const SOCIAL_LINKS = [
 //  HERO
 // ─────────────────────────────────────────────────────────────
 export const HERO = {
-  label: "Backend & Full-Stack Engineer",
   greeting: "Hey, I am",
   name: "Saubhagya.",
   // *word* renders as highlighted serif italic
@@ -74,7 +73,6 @@ export const HERO = {
     "Final year *Electrical & Electronics* at *IIT Patna*. Currently a backend intern at *Fourth Frontier*, shipping *AWS Lambda* services, *event-driven* integrations, and APIs other teams depend on.",
     "*600+* DSA problems solved. *Codeforces Specialist*. *1st Runner-Up* at the Pocket FM AI Creator Hackathon. I like problems where the naive answer is too slow.",
   ],
-  cta: { label: "See my work", href: "/projects" },
   scrollHint: "Scroll",
 };
 
@@ -90,14 +88,12 @@ export const STATS = [
 // ─────────────────────────────────────────────────────────────
 export const ABOUT = {
   label: "About Me",
-  heading: { line1: "Engineering", line2: "the", line3: "invisible." },
+  heading: { line1: "A bit", line2: "about", line3: "me." },
+  // Kept short deliberately: the Fourth Frontier/Tradylytics/LTTB detail
+  // that used to live here now lives in the Experience section instead,
+  // so this stays two paragraphs rather than repeating it.
   bio: [
     "I am a final-year *Electrical & Electronics Engineering* undergraduate at the *Indian Institute of Technology, Patna*, and I spend most of my time on the server side of things - designing APIs, modelling data, and making slow systems fast.",
-    "At *Fourth Frontier Technologies* I engineered an end-to-end, multi-platform *subscription management system*, handling cross-platform purchases through *Shopify Webhooks* and *Android In-App APIs*. I wrote the dynamic data-mapping logic and custom validation middleware that classifies users across a *4-tier subscription model*, wired up *event-driven Slack integrations* and cron jobs for automated alerts, and kept the whole lifecycle consistent across platforms.",
-    "The work I am proudest of there is a *data model refactor*: workout storage held *20 physiological metrics per timestamp* as 20 separate rows. I collapsed that to *one record per timestamp*, then built versioned *serverless APIs on AWS Lambda* around it with a *2-tier fallback* and *Amazon S3* integration.",
-    "I also killed a UI stutter in acceleration graphs by implementing the *Largest Triangle Three Buckets* algorithm - *86K data points down to 2K* with the shape of the curve intact. The fix was picking the right algorithm, not buying a bigger machine.",
-    "Before that, at *Tradylytics* - an *IIT Patna-backed startup* - I built the authentication layer with *JWT* and *Google OAuth 2.0*, shipped *REST APIs* for CSV trade ingestion and broker integrations on an *MVC* Node/Express backend, and cut response times by removing redundant *MongoDB* queries, adding field projection, and indexing the hot collections.",
-    "Outside of work I am a competitive programmer - *Codeforces Specialist* at a peak of *1495*, *3-star on CodeChef*, *rank 112* in CodeChef Starters 172 out of 35,000+, and *600+* problems solved across LeetCode, Codeforces and GeeksforGeeks. I also do alpha research as a *Research Consultant at WorldQuant Brain*.",
     "I care about systems that are *correct first and fast second*, code the next person can read, and the kind of debugging that ends in understanding rather than a lucky guess.",
   ],
   resumeUrl: "/resume.pdf",
@@ -139,6 +135,18 @@ export const EXPERIENCE = [
       "Reduced API response time by removing redundant MongoDB queries, applying field projection and indexing frequently accessed collections.",
     ],
     stack: ["Node.js", "Express", "MongoDB", "JWT", "OAuth 2.0"],
+  },
+  {
+    company: "WorldQuant Brain",
+    role: "Research Consultant",
+    period: "Ongoing",
+    location: "Remote",
+    current: false,
+    points: [
+      "Built alphas using quantitative finance strategies and statistical research techniques on the WorldQuant BRAIN platform.",
+      "Reached Gold tier as a Research Consultant based on alpha performance and submission quality.",
+    ],
+    stack: ["Quantitative Finance", "Alpha Research", "WorldQuant BRAIN"],
   },
 ];
 
@@ -217,7 +225,6 @@ export const ACHIEVEMENTS = [
   { value: "1495",   label: "Codeforces peak rating - Specialist",       note: "CodeChef 3-star coder" },
   { value: "#112",   label: "CodeChef Starters 172",                     note: "among 35,000+ participants" },
   { value: "600+",   label: "DSA problems solved",                       note: "LeetCode - Codeforces - GeeksforGeeks" },
-  { value: "WQ",     label: "Research Consultant, WorldQuant Brain",     note: "quantitative finance and alpha research" },
   { value: "0.4%",   label: "JEE Mains top percentile",                  note: "AIR 6102 in JEE Advanced among 190K" },
 ];
 
@@ -312,35 +319,13 @@ export const FUNDAMENTALS = [
 // Flat list, used by the compact skill marquees.
 export const ALL_SKILLS = SKILL_GROUPS.flatMap((g) => g.items);
 
-// ─────────────────────────────────────────────────────────────
-//  WHAT I DO — the three cards on the home page
-// ─────────────────────────────────────────────────────────────
-export const SERVICES = [
-  {
-    num: "01",
-    label: "Backend Engineering",
-    title: "APIs & Serverless Systems",
-    description:
-      "REST APIs, versioned serverless services on AWS Lambda, event-driven integrations, authentication with JWT and OAuth 2.0, and data models designed before they become a problem.",
-    href: "/projects",
-  },
-  {
-    num: "02",
-    label: "Full-Stack Development",
-    title: "Next.js & React Products",
-    description:
-      "Production web apps end to end - Next.js with server-side rendering, React front ends backed by Node and MongoDB, shipped and deployed rather than left in a branch.",
-    href: "/projects",
-  },
-  {
-    num: "03",
-    label: "Performance & Algorithms",
-    title: "Making Slow Things Fast",
-    description:
-      "Query optimisation, indexing, data-model refactors and algorithmic fixes like LTTB downsampling - 600+ DSA problems worth of instinct for where the time actually goes.",
-    href: "/about",
-  },
+// Curated subset shown as tags under "Where I'm useful" — the stack a
+// visitor actually cares about at a glance, not the full resume list.
+const FEATURED_SKILL_NAMES = [
+  "React.js", "Next.js", "Node.js", "Express.js", "AWS Lambda",
+  "MongoDB", "MySQL", "TypeScript", "Python", "C++", "Tailwind CSS", "Docker",
 ];
+export const FEATURED_SKILLS = ALL_SKILLS.filter((s) => FEATURED_SKILL_NAMES.includes(s.name));
 
 // ─────────────────────────────────────────────────────────────
 //  CONTACT

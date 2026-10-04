@@ -6,8 +6,12 @@ import { EXPERIENCE } from "@/content/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** First 4-digit year in the period string, used as the card's index marker. */
-const startYear = (period) => (period.match(/\d{4}/) || [""])[0];
+/**
+ * First 4-digit year in the period string, used as the card's index marker.
+ * The marker column is a fixed width, so an undated period (e.g. "Ongoing")
+ * falls back to a dash rather than text that would overflow it.
+ */
+const startYear = (period) => (period.match(/\d{4}/) || ["—"])[0];
 
 export default function Experience() {
   const ref = useRef(null);

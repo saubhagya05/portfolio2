@@ -20,6 +20,7 @@ const VideoScrub = dynamic(() => import("../components/VideoScrub"), {
   loading: () => <Backdrop />,
 });
 import Hero from "../components/Hero";
+import About from "../components/About";
 import Experience from "../components/Experience";
 import Work from "../components/Work";
 import Achievements from "../components/Achievements";
@@ -28,11 +29,12 @@ import Footer from "../components/Footer";
 import SeoContent from "../components/SeoContent";
 
 const SECTIONS = [
-  { id: "hero-section",         label: "Intro"    },
-  { id: "experience-section",   label: "Career"   },
-  { id: "work-section",         label: "Work"     },
-  { id: "achievements-section", label: "Record"   },
-  { id: "contact-section",      label: "Contact"  },
+  { id: "hero-section",         label: "Intro"        },
+  { id: "about-section",        label: "About"        },
+  { id: "experience-section",   label: "Experience"   },
+  { id: "work-section",         label: "Work"         },
+  { id: "achievements-section", label: "Achievements" },
+  { id: "contact-section",      label: "Contact"      },
 ];
 
 export default function Home() {
@@ -82,6 +84,7 @@ export default function Home() {
       {/* scrollable sections */}
       <div className="relative z-10">
         <Hero />
+        <About />
         <Experience />
         <Work />
         <Achievements />

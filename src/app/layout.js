@@ -127,15 +127,8 @@ const jsonLd = {
       isPartOf: { "@id": `${BASE}/#website` },
       about: { "@id": `${BASE}/#person` },
       mainEntity: { "@id": `${BASE}/#person` },
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: BASE },
-          { "@type": "ListItem", position: 2, name: "Projects", item: `${BASE}/projects` },
-          { "@type": "ListItem", position: 3, name: "About", item: `${BASE}/about` },
-          { "@type": "ListItem", position: 4, name: "Contact", item: `${BASE}/contact` },
-        ],
-      },
+      // Single-page site — a one-item breadcrumb has nothing to crumb, so
+      // it's omitted rather than included for its own sake.
     },
     {
       "@type": "ItemList",

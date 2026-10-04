@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BlurText from "./BlurText";
@@ -56,11 +55,7 @@ export default function Hero() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-[#ff6b1a] opacity-75 animate-ping" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#ff6b1a]" />
           </span>
-          <p className="text-[12px] md:text-sm text-[#ff6b1a] tracking-[0.28em] uppercase font-bold">
-            {HERO.label}
-          </p>
-          <span className="hidden sm:block w-8 h-px bg-white/15" />
-          <p className="hidden sm:block text-[12px] text-white/55 tracking-[0.28em] uppercase font-medium">
+          <p className="text-[12px] text-white/55 tracking-[0.28em] uppercase font-medium">
             {PERSON.school} &middot; {PERSON.location}
           </p>
         </div>
@@ -95,22 +90,16 @@ export default function Hero() {
             />
           ))}
 
-          {/* CTAs */}
+          {/* CTA */}
           <div className="flex flex-wrap items-center gap-3 mt-4">
-            <Link
-              href={HERO.cta.href}
+            <a
+              href={`mailto:${PERSON.email}`}
               className="group inline-flex items-center gap-2.5 px-6 py-3 bg-[#ff6b1a] text-black text-[12px] font-black uppercase tracking-[0.18em] rounded-full hover:bg-white transition-colors duration-300"
             >
-              {HERO.cta.label}
+              Email me
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="transition-transform duration-300 group-hover:translate-x-0.5">
                 <path d="M2.5 6.5h8M7.5 3l3.5 3.5L7.5 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </Link>
-            <a
-              href={`mailto:${PERSON.email}`}
-              className="inline-flex items-center gap-2.5 px-6 py-3 border border-white/15 text-white/70 text-[12px] font-bold uppercase tracking-[0.18em] rounded-full hover:border-white/40 hover:text-white transition-colors duration-300"
-            >
-              Email me
             </a>
           </div>
         </div>

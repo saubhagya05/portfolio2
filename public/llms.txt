@@ -47,10 +47,7 @@ serverless APIs on AWS Lambda, and event-driven integrations.
 
 ## Pages
 
-- Home: /
-- Projects: /projects
-- About: /about
-- Contact: /contact
+Single-page site — everything above lives at /.
 
 ## Full Profile
 
