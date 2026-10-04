@@ -6,10 +6,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+import dynamic from "next/dynamic";
 import Cursor from "../components/Cursor";
 import Navbar from "../components/Navbar";
 import Backdrop from "../components/Backdrop";
 import ScrollProgress from "../components/ScrollProgress";
+
+// Client-only: touches window/video APIs at mount and is meaningfully
+// heavier than the CSS backdrop it replaces, so it is never part of the
+// server-rendered or initial client bundle.
+const VideoScrub = dynamic(() => import("../components/VideoScrub"), {
+  ssr: false,
+  loading: () => <Backdrop />,
+});
 import Hero from "../components/Hero";
 import Experience from "../components/Experience";
 import Work from "../components/Work";
@@ -62,7 +71,7 @@ export default function Home() {
       <Cursor />
 
       {/* cinematic background — lives behind everything */}
-      <Backdrop />
+      <VideoScrub />
 
       {/* scroll progress rail */}
       <ScrollProgress sections={SECTIONS} />
